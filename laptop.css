@@ -1590,12 +1590,13 @@ body {
     margin: 0 auto;
     padding: 10px;
   }
-
+@media (max-width: 480px) {
   #products .row {
     flex-direction: column;
     gap: 20px;
     margin: 0 !important;
   }
+}
 
   #products .col-lg-4,
   #products .col-md-4,
