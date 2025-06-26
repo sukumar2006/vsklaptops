@@ -1575,15 +1575,7 @@ body {
   }
 }
 
-.cartbt .btn {
 
-   width: 90%;
-    font-size: 14px;
-    padding: 10px;
-    background-color: #29f700 !important;
-    margin-right: 15px !important;
-
-}
 
 @media (max-width: 480px) {
   #products .container {
