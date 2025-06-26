@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout Page</title>
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI&display=swap">
+</head>
+
+<body>
+  <h2>Delivery Information</h2>
+
+  <div class="overlay">
+    <form id="checkoutForm" onsubmit="handleSubmit(event)">
+      <input type="text" placeholder="First Name" id="firstName" required>
+      <input type="text" placeholder="Last Name" id="lastName" required>
+      <input type="text" placeholder="Address" id="address" required>
+      <input type="text" placeholder="City" id="city" required>
+      <input type="number" placeholder="Pincode" id="pincode" maxlength="6" required>
+      <input type="email" placeholder="Email" id="email" required>
+
+      <h3>Choose Payment Method</h3>
+      <select id="paymentMethod" onchange="showPaymentFields()" required>
+        <option value="">-- Select Payment Method --</option>
+        <option value="card">Credit/Debit Card</option>
+        <option value="upi">UPI</option>
+        <option value="cod">Cash on Delivery</option>
+      </select>
+
+     
+      <div id="cardFields" style="display: none;">
+        <input type="text" placeholder="Card Number" id="cardNumber" maxlength="16">
+        <input type="text" placeholder="Cardholder Name" id="cardName">
+        <input type="text" placeholder="MM/YY" id="cardExpiry" maxlength="5">
+        <input type="text" placeholder="CVV" id="cardCVV" maxlength="3">
+      </div>
+
+     
+      <div id="upiFields" style="display: none;">
+        <input type="text" placeholder="Enter UPI ID (e.g. name@upi)" id="upiID">
+      </div>
+
+      <div id="codInfo" style="display: none; color: green;">
+        <p>No payment needed now. Pay in cash upon delivery.</p>
+      </div>
+
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+  function showPaymentFields() {
+    const method = document.getElementById('paymentMethod').value;
+    document.getElementById('cardFields').style.display = 'none';
+    document.getElementById('upiFields').style.display = 'none';
+    document.getElementById('codInfo').style.display = 'none';
+
+    if (method === 'card') {
+      document.getElementById('cardFields').style.display = 'block';
+    } else if (method === 'upi') {
+      document.getElementById('upiFields').style.display = 'block';
+    } else if (method === 'cod') {
+      document.getElementById('codInfo').style.display = 'block';
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+    const city = document.getElementById('city').value;
+    const method = document.getElementById('paymentMethod').value;
+
+    if (method === 'card') {
+      const cardNumber = document.getElementById('cardNumber').value;
+      const cardName = document.getElementById('cardName').value;
+      const cardExpiry = document.getElementById('cardExpiry').value;
+      const cardCVV = document.getElementById('cardCVV').value;
+
+      if (cardNumber.length !== 16 || cardCVV.length !== 3 || cardName === '' || cardExpiry === '') {
+        alert("Please enter valid card details.");
+        return;
+      }
+    } else if (method === 'upi') {
+      const upiID = document.getElementById('upiID').value;
+      if (!upiID.includes("@")) {
+        alert("Invalid UPI ID.");
+        return;
+      }
+    } else if (method !== 'cod') {
+      alert("Please select a valid payment method.");
+      return;
+    }
+
+    
+    const productName = sessionStorage.getItem("productName") || "N/A";
+    const totalPrice = sessionStorage.getItem("totalPrice") || "0";
+
+    sessionStorage.setItem("checkoutName", name);
+    sessionStorage.setItem("checkoutCity", city);
+    sessionStorage.setItem("checkoutPayment", method);
+    sessionStorage.setItem("checkoutProduct", productName);
+    sessionStorage.setItem("checkoutTotal", totalPrice);
+
+   
+    window.location.href = "summery.html";
+  }
+</script>
+
+</body>
+</html>

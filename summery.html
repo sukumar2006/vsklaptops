@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Summary</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background: #eef2f7;
+    }
+    .summary-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: 50px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+    .confirm {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .confirm:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="summary-box">
+    <h2>Order Summary</h2>
+    <p><strong>Customer Name:</strong> <span id="summaryName"></span></p>
+    <p><strong>City:</strong> <span id="summaryCity"></span></p>
+    <p><strong>Payment Method:</strong> <span id="summaryPayment"></span></p>
+    <p><strong>Product Name:</strong> <span id="summaryProduct"></span></p>
+    <p><strong>Total Price:</strong> <span id="summaryTotal"></span></p>
+
+    <button type="button" class="confirm" onclick="goToThankYou()">Confirm</button>
+  </div>
+
+  <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+      const name = sessionStorage.getItem("checkoutName") || "N/A";
+      const city = sessionStorage.getItem("checkoutCity") || "N/A";
+      const payment = sessionStorage.getItem("checkoutPayment") || "N/A";
+      const product = sessionStorage.getItem("checkoutProduct") || "N/A";
+      const total = sessionStorage.getItem("checkoutTotal") || "0";
+
+      document.getElementById("summaryName").textContent = name;
+      document.getElementById("summaryCity").textContent = city;
+      document.getElementById("summaryPayment").textContent = payment.toUpperCase();
+      document.getElementById("summaryProduct").textContent = product;
+      document.getElementById("summaryTotal").textContent = "" + total;
+    });
+
+  
+    function goToThankYou() {
+      window.location.href = "thank you.html";
+    }
+  </script>
+
+</body>
+</html>
