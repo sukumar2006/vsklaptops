@@ -1470,11 +1470,17 @@ body {
     align-items: center;
   }
 
-  .cartbt .btn,
+   .cartbt .btn,
   .bttn-buyy {
     width: 90%;
     font-size: 14px;
     padding: 10px;
+    height: 41px;
+  }
+
+  .cartbt .btn {
+
+    margin-right: 19px;
   }
 }
 
